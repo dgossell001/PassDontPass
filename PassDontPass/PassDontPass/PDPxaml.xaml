@@ -203,6 +203,7 @@
         Grid.Row="6"
         Grid.Column="0"
         Grid.ColumnSpan="2"
+        Clicked="OnBetTypeButtonClicked"
         />
 
       <Button
@@ -210,6 +211,7 @@
         Grid.Row="6"
         Grid.Column="3"
         Grid.ColumnSpan="2"
+        Clicked="OnBetTypeButtonClicked"
         />
 
       <Label

@@ -79,5 +79,20 @@ namespace PassDontPass
 
             rollValueLabel.Text = intRollTotal.ToString();
         }
+
+        void OnBetTypeButtonClicked(object sender, EventArgs args)
+        {
+            Button btnBetType = (Button)sender;
+            string strBetType = btnBetType.Text.Substring(0, 1);
+
+            if(strBetType == "P")
+            {
+                betTypeLabel.Text = "Pass";
+            }
+            else
+            {
+                betTypeLabel.Text = "Don't pass";
+            }
+        }
     }
 }
