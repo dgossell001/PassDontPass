@@ -48,6 +48,7 @@
 
       <Style TargetType="Button">
         <Setter Property="BackgroundColor" Value="Black" />
+        <Setter Property="TextColor" Value="#FFFFFF" />
       </Style>
       
     </ResourceDictionary>
@@ -58,12 +59,13 @@
     <Grid>
 
       <Grid.RowDefinitions>
-        <RowDefinition Height="100" />
+        <RowDefinition Height="80" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="200" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
+        <RowDefinition Height="80" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
