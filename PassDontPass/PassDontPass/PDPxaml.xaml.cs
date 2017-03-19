@@ -12,87 +12,206 @@ namespace PassDontPass
         public PDPxaml()
         {
             InitializeComponent();
+            Application.Current.Properties["RoundStatus"] = "ComeOut";
         }
 
         void OnBetButtonClicked(object sender, EventArgs args)
         {
-            Button btnBetButton = (Button)sender;
-
-            string strCurrentBet = betAmountLabel.Text;
-            strCurrentBet = strCurrentBet.Substring(0, strCurrentBet.Length - 3); // drop the decimal and ending double zero
-            strCurrentBet = strCurrentBet.Replace("$","").Replace(" ",""); // drop the dollar sign and leading space
-
-            string strCurrentBankroll = bankrollAmountLabel.Text;
-            strCurrentBankroll = strCurrentBankroll.Substring(0, strCurrentBankroll.Length - 3); // drop the decimal and ending double zero
-            strCurrentBankroll = strCurrentBankroll.Replace("$", "").Replace(" ", "").Replace(",",""); // drop the dollar sign, leading space, and any comma
-
-            int intCurrentBet = Convert.ToInt32(strCurrentBet);
-            int intCurrentBankroll = Convert.ToInt32(strCurrentBankroll);
-            int intBetChange = 0;
-
-            if(btnBetButton.Text.Substring(0,1) == "+")
+            string strRoundStatus = Application.Current.Properties["RoundStatus"].ToString();
+            if (strRoundStatus == "ComeOut" || strRoundStatus == "Starting")
             {
-                intBetChange = 5;
+                Button btnBetButton = (Button)sender;
+
+                int intCurrentBet = ConvertLabelValueToInt(betAmountLabel.Text);
+                int intCurrentBankroll = ConvertLabelValueToInt(bankrollAmountLabel.Text);
+                int intBetChange = 0;
+
+                if (btnBetButton.Text.Substring(0, 1) == "+")
+                {
+                    intBetChange = 5;
+                }
+                else
+                {
+                    intBetChange = -5;
+                }
+
+                if (intCurrentBet + intBetChange <= 0)
+                {
+                    intBetChange = 0;
+                    rollStatusLabel.Text = "Minimum bet is $ 5.00";
+                }
+
+                if (intCurrentBankroll + intBetChange <= 0)
+                {
+                    intBetChange = 0;
+                    rollStatusLabel.Text = "Sorry, out of money!";
+                }
+
+                intCurrentBet += intBetChange;
+                intCurrentBankroll -= intBetChange;
+
+                betAmountLabel.Text = ConvertValueToLabel(intCurrentBet);
+                bankrollAmountLabel.Text = ConvertValueToLabel(intCurrentBankroll);
+
+                if (intCurrentBet > 0) { rollStatusLabel.Text = "Update bet or roll the dice."; }
             }
             else
             {
-                intBetChange = -5;
+                rollStatusLabel.Text = "Can't change bet after come out roll.";
             }
-
-            if (intCurrentBet + intBetChange <= 0)
-            {
-                intBetChange = 0;
-                rollStatusLabel.Text = "Minimum bet is $ 5.00";
-            }
-
-            if (intCurrentBankroll + intBetChange <= 0)
-            {
-                intBetChange = 0;
-                rollStatusLabel.Text = "Sorry, out of money!";
-            }
-
-            intCurrentBet += intBetChange;
-            intCurrentBankroll -= intBetChange;
-
-            betAmountLabel.Text = "$ " + intCurrentBet.ToString() + ".00";
-            bankrollAmountLabel.Text = "$ " + intCurrentBankroll.ToString() + ".00";
-
-            rollStatusLabel.Text = "Update bet or roll the dice.";
         }
 
         void OnRollButtonClicked(object sender, EventArgs args)
         {
-            // generate the die vallues rolled
-            Random rndm = new Random();
-            int intDie1 = rndm.Next(1,7);
-            int intDie2 = rndm.Next(1, 7);
-            int intRollTotal = intDie1 + intDie2;
+            bool booOKToRoll = false;
+            if(ConvertLabelValueToInt(betAmountLabel.Text) > 0) { booOKToRoll = true; }
 
-            // display the dice images
-            string strDieImageSource = "PassDontPass.Images." + intDie1.ToString() + ".jpg";
+            if (booOKToRoll)
+            {
+                // generate the die vallues rolled
+                Random rndm = new Random();
+                int intDie1 = rndm.Next(1, 7);
+                int intDie2 = rndm.Next(1, 7);
+                int intRollTotal = intDie1 + intDie2;
 
-            //imgDie1.Source = strDieImageSource;
-            imgDie1.Source = ImageSource.FromResource(strDieImageSource);
+                // display the dice images
+                string strDieImageSource = "PassDontPass.Images." + intDie1.ToString() + ".jpg";
+                imgDie1.Source = ImageSource.FromResource(strDieImageSource);
 
-            strDieImageSource = "PassDontPass.Images." + intDie2.ToString() + ".jpg";
-            imgDie2.Source = ImageSource.FromResource(strDieImageSource);
+                strDieImageSource = "PassDontPass.Images." + intDie2.ToString() + ".jpg";
+                imgDie2.Source = ImageSource.FromResource(strDieImageSource);
 
-            rollValueLabel.Text = intRollTotal.ToString();
+                rollValueLabel.Text = intRollTotal.ToString();
+
+                /* ***************************************** **
+                 * Determine action based on round status
+                 * ***************************************** */
+                string strRoundStatus = Application.Current.Properties["RoundStatus"].ToString();
+
+                switch (strRoundStatus)
+                {
+                    case "ComeOut":
+                        // win for shooter and pass bet
+                        if (intRollTotal == 7 || intRollTotal == 11)
+                        {
+                            rollStatusLabel.Text = "Shooter wins.";
+                            ResolveTheBet(true);
+                        }
+                        // craps, loss for shooter and pass bet
+                        else if (intRollTotal == 2 || intRollTotal == 3 || intRollTotal == 12)
+                        {
+                            rollStatusLabel.Text = "Shooter crapped out.";
+                            ResolveTheBet(false);
+                        }
+                        else
+                        {
+                            Application.Current.Properties["RoundStatus"] = "Point";
+
+                            strDieImageSource = "PassDontPass.Images." + intDie1.ToString() + ".jpg";
+                            imgPoint1.Source = ImageSource.FromResource(strDieImageSource);
+                            strDieImageSource = "PassDontPass.Images." + intDie2.ToString() + ".jpg";
+                            imgPoint2.Source = ImageSource.FromResource(strDieImageSource);
+
+                            pointValueLabel.Text = intRollTotal.ToString();
+                            rollStatusLabel.Text = "Point is " + intRollTotal.ToString() + ". Roll the dice.";
+                        }
+                        break;
+                    case "Point":
+                        int intPoint = Convert.ToInt32(pointValueLabel.Text);
+
+                        // made the point, win for shooter and pass bets
+                        if (intRollTotal == intPoint)
+                        {
+                            Application.Current.Properties["RoundStatus"] = "ComeOut";
+                            ResolveTheBet(true);
+                        }
+                        // 7 before rolling the point
+                        // loss for the shooter and pass bets
+                        else if (intRollTotal == 7)
+                        {
+                            Application.Current.Properties["RoundStatus"] = "ComeOut";
+                            ResolveTheBet(false);
+                        }
+                        else
+                        {
+                            rollStatusLabel.Text = "Roll again.";
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                rollStatusLabel.Text = "Please place a bet.";
+            }
         }
 
         void OnBetTypeButtonClicked(object sender, EventArgs args)
         {
-            Button btnBetType = (Button)sender;
-            string strBetType = btnBetType.Text.Substring(0, 1);
-
-            if(strBetType == "P")
+            string strRoundStatus = Application.Current.Properties["RoundStatus"].ToString();
+            if (strRoundStatus == "ComeOut" || strRoundStatus == "Starting")
             {
-                betTypeLabel.Text = "Pass";
+                Button btnBetType = (Button)sender;
+                string strBetType = btnBetType.Text.Substring(0, 1);
+
+                if (strBetType == "P")
+                {
+                    betTypeLabel.Text = "Pass";
+                }
+                else
+                {
+                    betTypeLabel.Text = "Don't pass";
+                }
             }
             else
             {
-                betTypeLabel.Text = "Don't pass";
+                rollStatusLabel.Text = "Can't change bet after come out roll.";
             }
+        }
+
+        void ResolveTheBet(bool booShooterWon)
+        {
+            bool booBettorWon = false;   // default is bettor lost
+            string strBetType = betTypeLabel.Text.Substring(0, 1);
+            string strFullBetType = betTypeLabel.Text;
+
+            // change result to bettor won if conditions are met
+            if ((strBetType == "P" && booShooterWon)    // shoter win and bet is pass
+                || (strBetType == "D" && !booShooterWon))  // shooter losses and bet is don't pass
+            {
+                booBettorWon = true;
+            }
+
+            if(booBettorWon)
+            {
+                rollStatusLabel.Text = "You won your " + strFullBetType + " bet.";
+                int intWonAmount = ConvertLabelValueToInt(betAmountLabel.Text);
+                int intBankroll = ConvertLabelValueToInt(bankrollAmountLabel.Text) + intWonAmount;
+
+                bankrollAmountLabel.Text = ConvertValueToLabel(intBankroll);
+            }
+            else
+            {
+                rollStatusLabel.Text = "You lost your " + strFullBetType + " bet.";
+                betAmountLabel.Text = ConvertValueToLabel(0);
+            }
+
+            imgPoint1.Source = ImageSource.FromResource("PassDontPass.Images.0.jpg");
+            imgPoint2.Source = ImageSource.FromResource("PassDontPass.Images.0.jpg");
+        }
+        
+        public int ConvertLabelValueToInt(string strConvertMe)
+        {
+            strConvertMe = strConvertMe.Substring(0, strConvertMe.Length - 3); // drop the decimal and ending double zero
+            strConvertMe = strConvertMe.Replace("$", "").Replace(" ", "").Replace(",",""); // drop the dollar sign and leading space
+
+            return Convert.ToInt32(strConvertMe);
+        }
+
+        public string ConvertValueToLabel(int intConvertMe)
+        {
+            return "$ " + intConvertMe.ToString() + ".00";
         }
     }
 }

@@ -18,7 +18,7 @@
 
       <Style TargetType="Label">
         <Setter Property="TextColor" Value="Black" />
-        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="FontSize" Value="Medium" />
         <Setter Property="VerticalOptions" Value="Center" />
       </Style>
 
@@ -87,6 +87,7 @@
           Grid.Row="0"
           Grid.Column="1">
         <Image
+          x:Name="imgPoint1"
           Source="{local:ImageResource PassDontPass.Images.0.jpg}"
           />
       </ContentView>
@@ -95,6 +96,7 @@
           Grid.Row="0"
           Grid.Column="2">
         <Image
+          x:Name="imgPoint2"
           Source="{local:ImageResource PassDontPass.Images.0.jpg}"
           />
       </ContentView>
@@ -223,7 +225,7 @@
 
       <Label
         x:Name="bankrollAmountLabel"
-        Text="$2,550.00"
+        Text="$2,500.00"
         Style="{StaticResource displayLabelStyle}"
         Grid.Row="7"
         Grid.Column="2"
