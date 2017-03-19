@@ -56,6 +56,28 @@ namespace PassDontPass
 
             betAmountLabel.Text = "$ " + intCurrentBet.ToString() + ".00";
             bankrollAmountLabel.Text = "$ " + intCurrentBankroll.ToString() + ".00";
+
+            rollStatusLabel.Text = "Update bet or roll the dice.";
+        }
+
+        void OnRollButtonClicked(object sender, EventArgs args)
+        {
+            // generate the die vallues rolled
+            Random rndm = new Random();
+            int intDie1 = rndm.Next(1,7);
+            int intDie2 = rndm.Next(1, 7);
+            int intRollTotal = intDie1 + intDie2;
+
+            // display the dice images
+            string strDieImageSource = "PassDontPass.Images." + intDie1.ToString() + ".jpg";
+
+            //imgDie1.Source = strDieImageSource;
+            imgDie1.Source = ImageSource.FromResource(strDieImageSource);
+
+            strDieImageSource = "PassDontPass.Images." + intDie2.ToString() + ".jpg";
+            imgDie2.Source = ImageSource.FromResource(strDieImageSource);
+
+            rollValueLabel.Text = intRollTotal.ToString();
         }
     }
 }

@@ -82,17 +82,22 @@
         Grid.Column="0"
         />
 
-      <Image
-          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
-          Grid.Row="0"
-          Grid.Column="1"
-          />
 
-      <Image
-          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+      <ContentView
           Grid.Row="0"
-          Grid.Column="2"
+          Grid.Column="1">
+        <Image
+          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
           />
+      </ContentView>
+
+      <ContentView
+          Grid.Row="0"
+          Grid.Column="2">
+        <Image
+          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+          />
+      </ContentView>
 
       <Label
         x:Name="pointValueLabel"
@@ -137,12 +142,15 @@
         Grid.ColumnSpan="5"
         />
 
-      <Image
-          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+      <ContentView
           Grid.Row="3"
           Grid.Column="0"
-          Grid.ColumnSpan="2"
+          Grid.ColumnSpan="2">
+        <Image
+          x:Name="imgDie1"
+          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
           />
+      </ContentView>
 
       <Label
         x:Name="rollValueLabel"
@@ -153,18 +161,23 @@
         Grid.Column="2"
         />
 
-      <Image
-          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+      <ContentView
           Grid.Row="3"
           Grid.Column="3"
-          Grid.ColumnSpan="2"
+          Grid.ColumnSpan="2">
+        <Image
+          x:Name="imgDie2"
+          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
           />
+      </ContentView>
 
       <Button
+        x:Name="btnRollButton"
         Text="Roll Dice"
         Grid.Row="4"
         Grid.Column="1"
         Grid.ColumnSpan="3"
+        Clicked="OnRollButtonClicked"
         />
 
       <Button
