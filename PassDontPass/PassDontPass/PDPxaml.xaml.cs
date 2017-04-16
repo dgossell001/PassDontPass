@@ -213,5 +213,15 @@ namespace PassDontPass
         {
             return "$ " + intConvertMe.ToString() + ".00";
         }
+
+        void OnHelpTapped(object sender, EventArgs args)
+        {
+            cvHelpScreenoverlay.IsVisible = true;
+        }
+
+        void OnHelpCloseTapped(object sender, EventArgs args)
+        {
+            cvHelpScreenoverlay.IsVisible = false;
+        }
     }
 }

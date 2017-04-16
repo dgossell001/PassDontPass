@@ -55,186 +55,228 @@
   </ContentPage.Resources>
 
   <ContentPage.Content>
+    <AbsoluteLayout>
 
-    <Grid>
+      <Grid
+        AbsoluteLayout.LayoutBounds="0,0,1,1"
+        AbsoluteLayout.LayoutFlags="All">
 
-      <Grid.RowDefinitions>
-        <RowDefinition Height="80" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="80" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-      </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="80" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="80" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-      <Label
-        x:Name="pointCaptionLabel"
-        Text="Point:"
-        Grid.Row="0"
-        Grid.Column="0"
-        />
-
-
-      <ContentView
+        <Label
+          x:Name="pointCaptionLabel"
+          Text="Point:"
           Grid.Row="0"
-          Grid.Column="1">
-        <Image
-          x:Name="imgPoint1"
-          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
-          />
-      </ContentView>
-
-      <ContentView
-          Grid.Row="0"
-          Grid.Column="2">
-        <Image
-          x:Name="imgPoint2"
-          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
-          />
-      </ContentView>
-
-      <Label
-        x:Name="pointValueLabel"
-        Text="0"
-        Style="{StaticResource valueLabelStyle}"
-        FontAttributes="Bold"
-        Grid.Row="0"
-        Grid.Column="4"
-        />
-
-      <Label
-        x:Name="betCaptionLabel"
-        Text="Bet:"
-        Grid.Row="1"
-        Grid.Column="0"
-        />
-
-      <Label
-        x:Name="betAmountLabel"
-        Text="$ 0.00"
-        Style="{StaticResource displayLabelStyle}"
-        Grid.Row="1"
-        Grid.Column="1"
-        Grid.ColumnSpan="2"
-        />
-
-     <Label
-        x:Name="betTypeLabel"
-        Style="{StaticResource displayLabelStyle}"
-        Text="Pass"
-        Grid.Row="1"
-        Grid.Column="3"
-        Grid.ColumnSpan="2"
-        />
-
-      <Label
-        x:Name="rollStatusLabel"
-        Style="{StaticResource statusLabelStyle}"
-        Text="Place your bet!"
-        Grid.Row="2"
-        Grid.Column="0"
-        Grid.ColumnSpan="5"
-        />
-
-      <ContentView
-          Grid.Row="3"
           Grid.Column="0"
-          Grid.ColumnSpan="2">
-        <Image
-          x:Name="imgDie1"
-          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
           />
-      </ContentView>
 
-      <Label
-        x:Name="rollValueLabel"
-        Style="{StaticResource valueLabelStyle}"
-        Text="0"
-        FontAttributes="Bold"
-        Grid.Row="3"
-        Grid.Column="2"
-        />
 
-      <ContentView
-          Grid.Row="3"
+        <ContentView
+            Grid.Row="0"
+            Grid.Column="1">
+          <Image
+            x:Name="imgPoint1"
+            Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+            />
+        </ContentView>
+
+        <ContentView
+            Grid.Row="0"
+            Grid.Column="2">
+          <Image
+            x:Name="imgPoint2"
+            Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+            />
+        </ContentView>
+
+        <Label
+          x:Name="pointValueLabel"
+          Text="0"
+          Style="{StaticResource valueLabelStyle}"
+          FontAttributes="Bold"
+          Grid.Row="0"
+          Grid.Column="4"
+          />
+
+        <Label
+          x:Name="betCaptionLabel"
+          Text="Bet:"
+          Grid.Row="1"
+          Grid.Column="0"
+          />
+
+        <Label
+          x:Name="betAmountLabel"
+          Text="$ 0.00"
+          Style="{StaticResource displayLabelStyle}"
+          Grid.Row="1"
+          Grid.Column="1"
+          Grid.ColumnSpan="2"
+          />
+
+       <Label
+          x:Name="betTypeLabel"
+          Style="{StaticResource displayLabelStyle}"
+          Text="Pass"
+          Grid.Row="1"
           Grid.Column="3"
-          Grid.ColumnSpan="2">
-        <Image
-          x:Name="imgDie2"
-          Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+          Grid.ColumnSpan="2"
           />
-      </ContentView>
 
-      <Button
-        x:Name="btnRollButton"
-        Text="Roll Dice"
-        Grid.Row="4"
-        Grid.Column="1"
-        Grid.ColumnSpan="3"
-        Clicked="OnRollButtonClicked"
-        />
+        <Label
+          x:Name="rollStatusLabel"
+          Style="{StaticResource statusLabelStyle}"
+          Text="Place your bet!"
+          Grid.Row="2"
+          Grid.Column="0"
+          Grid.ColumnSpan="5"
+          />
 
-      <Button
-        x:Name="pluBetButton"
-        Text="+ Bet"
-        Grid.Row="5"
-        Grid.Column="0"
-        Grid.ColumnSpan="2"
-        Clicked="OnBetButtonClicked"
-        />
+        <ContentView
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+          <Image
+            x:Name="imgDie1"
+            Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+            />
+        </ContentView>
 
-      <Button
-        x:Name="minBetButton"
-        Text="- Bet"
-        Grid.Row="5"
-        Grid.Column="3"
-        Grid.ColumnSpan="2"
-        Clicked="OnBetButtonClicked"
-        />
+        <Label
+          x:Name="rollValueLabel"
+          Style="{StaticResource valueLabelStyle}"
+          Text="0"
+          FontAttributes="Bold"
+          Grid.Row="3"
+          Grid.Column="2"
+          />
 
-      <Button
-        Text="Pass"
-        Grid.Row="6"
-        Grid.Column="0"
-        Grid.ColumnSpan="2"
-        Clicked="OnBetTypeButtonClicked"
-        />
+        <ContentView
+            Grid.Row="3"
+            Grid.Column="3"
+            Grid.ColumnSpan="2">
+          <Image
+            x:Name="imgDie2"
+            Source="{local:ImageResource PassDontPass.Images.0.jpg}"
+            />
+        </ContentView>
 
-      <Button
-        Text="Don't Pass"
-        Grid.Row="6"
-        Grid.Column="3"
-        Grid.ColumnSpan="2"
-        Clicked="OnBetTypeButtonClicked"
-        />
+        <Button
+          x:Name="btnRollButton"
+          Text="Roll Dice"
+          Grid.Row="4"
+          Grid.Column="1"
+          Grid.ColumnSpan="3"
+          Clicked="OnRollButtonClicked"
+          />
 
-      <Label
-        Text="Bankroll:"
-        Grid.Row="7"
-        Grid.Column="0"
-        Grid.ColumnSpan="2"
-        />
+        <Button
+          x:Name="pluBetButton"
+          Text="+ Bet"
+          Grid.Row="5"
+          Grid.Column="0"
+          Grid.ColumnSpan="2"
+          Clicked="OnBetButtonClicked"
+          />
 
-      <Label
-        x:Name="bankrollAmountLabel"
-        Text="$2,500.00"
-        Style="{StaticResource displayLabelStyle}"
-        Grid.Row="7"
-        Grid.Column="2"
-        Grid.ColumnSpan="3"
-        />
+        <Label
+          x:Name="lblHelp"
+          Text="?"
+          FontSize="Large"
+          FontAttributes="Bold"
+          Grid.Row="5"
+          Grid.Column="2"
+          Grid.RowSpan="2"
+          HorizontalTextAlignment="Center"
+          VerticalTextAlignment="Center"
+          >
+          <Label.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnHelpTapped" />
+          </Label.GestureRecognizers>
+        </Label>
+
+        <Button
+          x:Name="minBetButton"
+          Text="- Bet"
+          Grid.Row="5"
+          Grid.Column="3"
+          Grid.ColumnSpan="2"
+          Clicked="OnBetButtonClicked"
+          />
+
+        <Button
+          Text="Pass"
+          Grid.Row="6"
+          Grid.Column="0"
+          Grid.ColumnSpan="2"
+          Clicked="OnBetTypeButtonClicked"
+          />
+
+        <Button
+          Text="Don't Pass"
+          Grid.Row="6"
+          Grid.Column="3"
+          Grid.ColumnSpan="2"
+          Clicked="OnBetTypeButtonClicked"
+          />
+
+        <Label
+          Text="Bankroll:"
+          Grid.Row="7"
+          Grid.Column="0"
+          Grid.ColumnSpan="2"
+          />
+
+        <Label
+          x:Name="bankrollAmountLabel"
+          Text="$2,500.00"
+          Style="{StaticResource displayLabelStyle}"
+          Grid.Row="7"
+          Grid.Column="2"
+          Grid.ColumnSpan="3"
+          />
       
-    </Grid>
+      </Grid>
+      
+      <!-- help page overlay -->
+      <ContentView
+        x:Name="cvHelpScreenoverlay"
+        IsVisible="false"
+        BackgroundColor="#C0999999"
+        AbsoluteLayout.LayoutBounds="0.9,0.9,0.9,0.9"
+        AbsoluteLayout.LayoutFlags="All">
+        <ScrollView>
+          <StackLayout>
+            <Label Text="Close">
+              <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnHelpCloseTapped" />
+              </Label.GestureRecognizers>
+            </Label>
+            <Label
+              Text="Help me. Help me, please. Oh, please, help me."
+              FontSize="Large">
+            </Label>
+          </StackLayout>
+        </ScrollView>
+      </ContentView>
+    </AbsoluteLayout>
 
     
   </ContentPage.Content>
