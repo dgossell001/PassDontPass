@@ -1,0 +1,59 @@
+<Label VerticalOptions="CenterAndExpand"> 
+<Label.FormattedText> 
+<FormattedString> 
+<Span Text="A single line with " /> <Span Text="bold" FontAttributes="Bold" /> <Span Text=" and " /> <Span Text="italic" FontAttributes="Italic" /> <Span Text=" and " /> <Span Text="large" FontSize="Large" /> <Span Text=" text." /> </FormattedString> </Label.FormattedText> </Label>
+
+
+<FormattedString>
+<Span Text="As you read through these instructions, keep in mind that you have two different roles in the game. As the shooter you are rolling the dice. As the bettor you are betting on what you think the outcome will be for the shooter. You can bet with yourself or against yourself."
+	/>
+
+<Span Text="Betting"
+	FontAttributes="Bold" />
+<Span Text="The first thing you need to do is place your bet. You select your type of bet by clicking either the "Pass" or the "Don't Pass" button. A "Pass" bet means you are betting with the shooter, "Don't Pass" means you are betting against the shooter."
+	/>
+
+<Span Text="You have to bet at least $5.00 on a round. To increase your bet, click the "+ Bet" button. To decrease your bet click the "- Bet" button. Each click will change your bet up or down by $5.00."
+	/>
+
+<Span Text="Rolling the dice and determining the winner"
+	FontAttributes="Bold" />
+	
+<Span Text="Once you've placed your bet, click the "Roll Dice" button. With each roll, you'll see a status displayed telling you that you've won or lost or that you need to roll again. Following is a description of how this is determined."
+	/>
+
+<Span Text="Each round begins by the player making a “come-out” roll of the dice. This roll can have one of three results:
+	/>
+
+<Span Text="*"
+	FontAttributes="Bold" />
+<Span Text="The shooter craps out: If the shooter rolls a 2, 3, or 12, the shooter is said to have crap out and the round ends. This is considered a loss for the shooter but its real relevance is dependent on the bet made by the player. Betting procedures will be explained in the next section."
+	/>
+	
+<Span Text="*"
+	FontAttributes="Bold" />
+<Span Text="The shooter “wins” by rolling a 7 or 11. This also ends the round. While this is considered a win for the shooter its real relevance, as with crapping out, depends on the particular bet made by the player."
+	/>
+
+<Span Text="*"
+	FontAttributes="Bold" />
+<Span Text="Any other number (4, 5, 6, 8, 9, or 10) results in the establishment of the “point”. The shooter is not considered to have won or lost at this time and not bets are won or lost either."
+	/>
+
+<Span Text="*"
+	FontAttributes="Bold" />
+<Span Text="If the round is still in progress (the shooter did not crap out and did not win with a roll of 7 or 11), the shooter continues to make rolls of the dice until one of two things happens:"
+	/>
+
+<Span Text="*"
+	FontAttributes="Bold" />
+
+<Span Text="The shooter rolls the same number as the point established on the come-out roll. This is considered a win for the shooter but, as with the possible outcomes of the come-out roll, its relevant effect is determined but what bets were made by the player."
+	/>
+
+<Span Text="*"
+	FontAttributes="Bold" />
+<Span Text="The shooter rolls a 7. The shooter loses and the round is over. But you guessed it, the true effect of this occurrence is dependent on the bets made by the player."
+	/>
+	
+</FormattedString>
