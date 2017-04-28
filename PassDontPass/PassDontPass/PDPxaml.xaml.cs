@@ -15,7 +15,7 @@ namespace PassDontPass
             Application.Current.Properties["RoundStatus"] = "ComeOut";
         }
 
-        void OnBetButtonClicked(object sender, EventArgs args)
+        private void OnBetButtonClicked(object sender, EventArgs args)
         {
             string strRoundStatus = Application.Current.Properties["RoundStatus"].ToString();
             if (strRoundStatus == "ComeOut" || strRoundStatus == "Starting")
@@ -61,13 +61,19 @@ namespace PassDontPass
             }
         }
 
-        void OnRollButtonClicked(object sender, EventArgs args)
+        private async void OnRollButtonClicked(object sender, EventArgs args)
         {
             bool booOKToRoll = false;
-            if(ConvertLabelValueToInt(betAmountLabel.Text) > 0) { booOKToRoll = true; }
+            if (ConvertLabelValueToInt(betAmountLabel.Text) > 0) { booOKToRoll = true; }
 
             if (booOKToRoll)
             {
+                // disable the buttons
+                toggleButtons(false);
+
+                // spin the dice a few times with old numbers
+                await SpinTheDice();
+
                 // generate the die vallues rolled
                 Random rndm = new Random();
                 int intDie1 = rndm.Next(1, 7);
@@ -80,6 +86,9 @@ namespace PassDontPass
 
                 strDieImageSource = "PassDontPass.Images." + intDie2.ToString() + ".jpg";
                 imgDie2.Source = ImageSource.FromResource(strDieImageSource);
+
+                // spin the dice a few times with new numbers
+                await SpinTheDice();
 
                 rollValueLabel.Text = intRollTotal.ToString();
 
@@ -145,6 +154,8 @@ namespace PassDontPass
             {
                 rollStatusLabel.Text = "Please place a bet.";
             }
+
+            toggleButtons(true);
         }
 
         void OnBetTypeButtonClicked(object sender, EventArgs args)
@@ -183,7 +194,7 @@ namespace PassDontPass
                 booBettorWon = true;
             }
 
-            if(booBettorWon)
+            if (booBettorWon)
             {
                 rollStatusLabel.Text = "You won your " + strFullBetType + " bet.";
                 int intWonAmount = ConvertLabelValueToInt(betAmountLabel.Text);
@@ -200,11 +211,11 @@ namespace PassDontPass
             imgPoint1.Source = ImageSource.FromResource("PassDontPass.Images.0.jpg");
             imgPoint2.Source = ImageSource.FromResource("PassDontPass.Images.0.jpg");
         }
-        
+
         public int ConvertLabelValueToInt(string strConvertMe)
         {
             strConvertMe = strConvertMe.Substring(0, strConvertMe.Length - 3); // drop the decimal and ending double zero
-            strConvertMe = strConvertMe.Replace("$", "").Replace(" ", "").Replace(",",""); // drop the dollar sign and leading space
+            strConvertMe = strConvertMe.Replace("$", "").Replace(" ", "").Replace(",", ""); // drop the dollar sign and leading space
 
             return Convert.ToInt32(strConvertMe);
         }
@@ -222,6 +233,40 @@ namespace PassDontPass
         void OnHelpCloseTapped(object sender, EventArgs args)
         {
             cvHelpScreenoverlay.IsVisible = false;
+        }
+
+        private async Task SpinTheDice()
+        {
+            await Task.WhenAll
+                (imgDie1.ScaleTo(1.1),
+                imgDie2.ScaleTo(1.1)
+                );
+
+            await Task.WhenAll<bool>
+                (imgDie1.RelRotateTo(360, 750, Easing.SinInOut),
+                imgDie2.RelRotateTo(-360, 750, Easing.SinInOut)
+            );
+
+            await Task.WhenAll
+                (imgDie1.ScaleTo(1),
+                imgDie2.ScaleTo(1)
+                );
+
+            // Put the dice where the belong
+            await imgDie1.RotateTo(0);
+            await imgDie2.RotateTo(0);
+
+        }
+
+        private void toggleButtons(bool booNewStatus)
+        {
+            btnRollButton.IsEnabled = booNewStatus;
+            minBetButton.IsEnabled = booNewStatus;
+            pluBetButton.IsEnabled = booNewStatus;
+            passBetButton.IsEnabled = booNewStatus;
+            nopassBetButton.IsEnabled = booNewStatus;
+            
+
         }
     }
 }

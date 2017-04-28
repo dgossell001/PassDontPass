@@ -222,6 +222,7 @@
           />
 
         <Button
+          x:Name="passBetButton"
           Text="Pass"
           Grid.Row="6"
           Grid.Column="0"
@@ -230,6 +231,7 @@
           />
 
         <Button
+          x:Name="nopassBetButton"
           Text="Don't Pass"
           Grid.Row="6"
           Grid.Column="3"
